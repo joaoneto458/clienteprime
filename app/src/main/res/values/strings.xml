@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">projeto2</string>
+    <string name="app_name">Clienteprime</string>
+    <string name="entrar">Entrar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="text_cadastro">Crie uma conta clicando aqui</string>
+    <string name="title_cadastro">Cadastre-se</string>
+    <string name="label_cadastro_nome">Nome</string>
+    <string name="label_cadastro_email">Email</string>
+    <string name="label_cadastro_senha">Senha</string>
+    <string name="login_google">Entrar com Google</string>
+    <string name="default_web_client_id">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</string>
 </resources>
