@@ -81,9 +81,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (email.isEmpty() || senha.isEmpty()) {
                     Toast toast = Toast.makeText(LoginActivity.this, mensagens[0], Toast.LENGTH_SHORT);
-                    Objects.requireNonNull(toast.getView()).setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                    TextView text = toast.getView().findViewById(android.R.id.message);
-                    text.setTextColor(Color.BLACK);
+                    if (toast.getView() != null) {
+                        toast.getView().setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                        TextView text = toast.getView().findViewById(android.R.id.message);
+                        text.setTextColor(Color.BLACK);
+                    }
                     toast.show();
                 } else {
                     AutenticarUsuario(v);
@@ -134,15 +136,21 @@ public class LoginActivity extends AppCompatActivity {
                     }, 2000);
                 } else {
                     String erro;
-                    try {
-                        throw task.getException();
-                    } catch (Exception e) {
+                    if (task.getException() != null) {
+                        try {
+                            throw task.getException();
+                        } catch (Exception e) {
+                            erro = "Erro ao realizar login";
+                        }
+                    } else {
                         erro = "Erro ao realizar login";
                     }
                     Toast toast = Toast.makeText(LoginActivity.this, erro, Toast.LENGTH_SHORT);
-                    Objects.requireNonNull(toast.getView()).setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
-                    TextView text = toast.getView().findViewById(android.R.id.message);
-                    text.setTextColor(Color.BLACK);
+                    if (toast.getView() != null) {
+                        toast.getView().setBackgroundTintList(ColorStateList.valueOf(Color.WHITE));
+                        TextView text = toast.getView().findViewById(android.R.id.message);
+                        text.setTextColor(Color.BLACK);
+                    }
                     toast.show();
                 }
             }
@@ -184,26 +192,28 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == 2) {
             try {
                 SignInCredential credential = oneTapClient.getSignInCredentialFromIntent(data);
-                String idToken = credential.getGoogleIdToken();
-                String googleAccountName = credential.getDisplayName();
-                String googleAccountEmail = credential.getId();
-                if (idToken != null) {
-                    FirebaseAuth.getInstance().signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Store login method
-                                getSharedPreferences("LoginPrefs", MODE_PRIVATE).edit().putString("loginMethod", "google").apply();
-                                Intent intent = new Intent(LoginActivity.this, PerfilActivity.class);
-                                intent.putExtra("googleAccountName", googleAccountName);
-                                intent.putExtra("googleAccountEmail", googleAccountEmail);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+                if (credential != null) {
+                    String idToken = credential.getGoogleIdToken();
+                    String googleAccountName = credential.getDisplayName();
+                    String googleAccountEmail = credential.getId();
+                    if (idToken != null) {
+                        FirebaseAuth.getInstance().signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Store login method
+                                    getSharedPreferences("LoginPrefs", MODE_PRIVATE).edit().putString("loginMethod", "google").apply();
+                                    Intent intent = new Intent(LoginActivity.this, PerfilActivity.class);
+                                    intent.putExtra("googleAccountName", googleAccountName);
+                                    intent.putExtra("googleAccountEmail", googleAccountEmail);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
             } catch (ApiException e) {
                 e.printStackTrace();
