@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/logopf"
     tools:context=".PerfilActivity">
 
     <View
@@ -34,6 +34,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_person"
+        app:tint="@color/white"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"
@@ -59,6 +60,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_email"
+        app:tint="@color/white"
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ic_user"
@@ -69,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="email@email.com"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="30dp"

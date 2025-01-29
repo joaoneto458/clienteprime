@@ -125,11 +125,13 @@ public class CadastroActivity extends AppCompatActivity {
     private void SalvarDadosUsuario() {
 
         String nome = edit_nome.getText().toString();
+        String email = edit_email.getText().toString();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Map<String, String> usuarios = new HashMap<>();
         usuarios.put("nome", nome);
+        usuarios.put("email", email);
 
         usuarioID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
